@@ -1,0 +1,17 @@
+{
+  "categories": [
+    { "id": "sucos", "name": "Sucos Funcionais" },
+    { "id": "bowls", "name": "Bowls" },
+    { "id": "lanches", "name": "Lanches Naturais" },
+    { "id": "sobremesas", "name": "Sobremesas" }
+  ],
+  "products": [
+    { "id": "1", "categoryId": "sucos", "name": "Suco Verde Equilibrado", "price": 1200, "imageUrl": "/img/suco-verde.jpg" },
+    { "id": "2", "categoryId": "sucos", "name": "Suco Laranja Vita", "price": 1000, "imageUrl": "/img/suco-laranja.jpg" },
+    { "id": "3", "categoryId": "sucos", "name": "Suco Detox Performance", "price": 1400, "imageUrl": "/img/suco-detox.jpg" },
+    { "id": "4", "categoryId": "bowls", "name": "Bowl de Açaí Premium", "price": 1800, "imageUrl": "/img/acai.jpg" },
+    { "id": "5", "categoryId": "bowls", "name": "Água de Coco Natural", "price": 800, "imageUrl": "/img/coco.jpg" },
+    { "id": "6", "categoryId": "sobremesas", "name": "Brownie Fit de Cacau", "price": 1200, "imageUrl": "/img/brownie.jpg" }
+  ],
+  "order": []
+}
