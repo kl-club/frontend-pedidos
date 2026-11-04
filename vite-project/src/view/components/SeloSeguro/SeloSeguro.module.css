@@ -1,0 +1,14 @@
+.selo {
+  --secundario: #456551;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: var(--color-surface-low);
+  color: var(--secundario);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}

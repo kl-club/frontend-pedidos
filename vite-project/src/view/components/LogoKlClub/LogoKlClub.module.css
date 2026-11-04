@@ -1,0 +1,38 @@
+.logo {
+  --verde-noite: #10301f;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.clicavel {
+  min-height: 44px;
+  border-radius: 8px;
+}
+
+.selo {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 18px;
+}
+
+.texto {
+  color: var(--verde-noite);
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.texto span {
+  color: var(--color-primary);
+}

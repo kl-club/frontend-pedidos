@@ -1,0 +1,5 @@
+.imagem {
+  display: block;
+  object-fit: cover;
+  background: #eaefe8;
+}

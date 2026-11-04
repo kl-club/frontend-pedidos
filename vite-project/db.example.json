@@ -1,0 +1,28 @@
+{
+  "categorias": [
+    { "id": 1, "nome": "Sucos Naturais", "icone": "local_drink" },
+    { "id": 2, "nome": "Sanduíches Saudáveis", "icone": "lunch_dining" },
+    { "id": 3, "nome": "Comida Japonesa & Bowls", "icone": "ramen_dining" },
+    { "id": 4, "nome": "Combos Fit", "icone": "set_meal" },
+    { "id": 5, "nome": "Bebidas & Chás", "icone": "emoji_food_beverage" },
+    { "id": 6, "nome": "Sobremesas Saudáveis", "icone": "icecream" }
+  ],
+  "produtos": [
+    { "id": 7, "categoriaId": 1, "nome": "Suco Verde Especial", "descricao": "Couve, maçã verde, limão e gengibre, batidos na hora.", "porcao": "300ml", "calorias": 110, "pontos": 12, "valorUnitario": 12.00, "imagemUrl": "/img/suco-verde.jpg" },
+    { "id": 9, "categoriaId": 1, "nome": "Suco Laranja Pêra", "descricao": "Laranja pêra espremida na hora, sem adição de açúcar.", "porcao": "300ml", "calorias": 135, "pontos": 10, "valorUnitario": 10.00, "imagemUrl": "/img/suco-laranja.jpg" },
+    { "id": 11, "categoriaId": 1, "nome": "Suco Detox Refrescante", "descricao": "Abacaxi, hortelã, pepino e água de coco.", "porcao": "400ml", "calorias": 90, "pontos": 14, "valorUnitario": 14.00, "imagemUrl": "/img/suco-detox.jpg" },
+    { "id": 13, "categoriaId": 1, "nome": "Smoothie de Morango Fit", "descricao": "Morango, banana e iogurte natural, sem açúcar.", "porcao": "350ml", "calorias": 180, "pontos": 15, "valorUnitario": 15.00, "imagemUrl": "/img/smoothie-morango.jpg" },
+    { "id": 21, "categoriaId": 2, "nome": "Sanduíche Frango c/ Ricota", "descricao": "Pão integral, frango desfiado, ricota temperada e rúcula.", "porcao": "220g", "calorias": 380, "pontos": 19, "valorUnitario": 19.90, "imagemUrl": "/img/sanduiche-frango.jpg" },
+    { "id": 22, "categoriaId": 2, "nome": "Wrap Vegano de Grão-de-Bico", "descricao": "Homus, grão-de-bico assado, cenoura e folhas verdes.", "porcao": "200g", "calorias": 340, "pontos": 18, "valorUnitario": 18.50, "imagemUrl": "/img/wrap-vegano.jpg" },
+    { "id": 18, "categoriaId": 3, "nome": "Bowl de Açaí Artesanal", "descricao": "Açaí puro com banana, granola artesanal e mel.", "porcao": "350g", "calorias": 290, "pontos": 16, "valorUnitario": 16.00, "imagemUrl": "/img/acai.jpg" },
+    { "id": 26, "categoriaId": 3, "nome": "Poke de Salmão", "descricao": "Arroz japonês, salmão fresco, manga, pepino e gergelim.", "porcao": "400g", "calorias": 520, "pontos": 32, "valorUnitario": 32.90, "imagemUrl": "/img/poke-salmao.jpg" },
+    { "id": 27, "categoriaId": 4, "nome": "Combo Fit Sanduíche + Suco", "descricao": "Sanduíche Frango c/ Ricota e Suco Laranja Pêra 300ml.", "porcao": "Combo", "calorias": 515, "pontos": 27, "valorUnitario": 27.90, "imagemUrl": "/img/combo-fit.jpg" },
+    { "id": 12, "categoriaId": 5, "nome": "Água de Coco Gelada", "descricao": "Água de coco natural, servida bem gelada.", "porcao": "400ml", "calorias": 45, "pontos": 8, "valorUnitario": 8.00, "imagemUrl": "/img/coco.jpg" },
+    { "id": 28, "categoriaId": 5, "nome": "Chá Gelado de Hibisco", "descricao": "Hibisco com canela e limão, sem açúcar.", "porcao": "400ml", "calorias": 20, "pontos": 9, "valorUnitario": 9.00, "imagemUrl": "/img/cha-hibisco.jpg" },
+    { "id": 31, "categoriaId": 6, "nome": "Brownie Fit de Cacau", "descricao": "Cacau 70%, farinha de amêndoas e adoçado com tâmaras.", "porcao": "80g", "calorias": 210, "pontos": 12, "valorUnitario": 12.00, "imagemUrl": "/img/brownie.jpg" },
+    { "id": 32, "categoriaId": 6, "nome": "Mousse de Maracujá Zero", "descricao": "Mousse aerado de maracujá, sem açúcar.", "porcao": "120g", "calorias": 140, "pontos": 9, "valorUnitario": 9.50, "imagemUrl": "/img/mousse-maracuja.jpg" }
+  ],
+  "pedidos": [],
+  "clientes": [],
+  "configuracoes": {}
+}

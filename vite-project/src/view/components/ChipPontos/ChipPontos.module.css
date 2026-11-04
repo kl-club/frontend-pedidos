@@ -1,0 +1,16 @@
+.chip {
+  --marrom-laranja: #893d00;
+  --laranja-fixo: #ffdbc9;
+
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: var(--laranja-fixo);
+  color: var(--marrom-laranja);
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
