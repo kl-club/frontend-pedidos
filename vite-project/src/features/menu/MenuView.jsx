@@ -53,7 +53,7 @@ export function MenuView() {
       </div>
 
       <footer className={styles.footer}>
-        <Button onClick={goToCart} disabled={cartCount === 0}>
+        <Button onClick={goToCart} disabled={cartCount == 0}>
           Pedido ({cartCount}) · {formatCurrency(cartTotalInCents)}
         </Button>
       </footer>
