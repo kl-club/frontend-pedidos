@@ -1,0 +1,74 @@
+.menu {
+  --secundario: #456551;
+  --verde-claro: #c4e8cf;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rotulo {
+  padding: 0 12px 6px;
+  color: var(--color-outline);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.item:hover {
+  background: var(--color-surface-low);
+  color: var(--color-text);
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--color-surface-low);
+  color: var(--secundario);
+  font-size: 18px;
+}
+
+.nome {
+  flex: 1;
+}
+
+.ativo,
+.ativo:hover {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px -4px rgb(31 122 76 / 45%);
+}
+
+.ativo .icone {
+  background: rgb(255 255 255 / 18%);
+  color: #fff;
+}
+
+.indicador {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
