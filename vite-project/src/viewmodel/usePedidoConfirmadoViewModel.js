@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { STATUS_PEDIDO } from '../model/constants/pedidos.js';
 import { rotuloPagamentoTotem } from '../model/entities/pedido.js';
 import { useCheckout } from './contexts/CheckoutContext.jsx';
 
@@ -9,7 +10,7 @@ const EVENTOS_INTERACAO = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
 
 export function usePedidoConfirmadoViewModel() {
   const navigate = useNavigate();
-  const { pedido, reiniciar } = useCheckout();
+  const { pedido, pontosDoPedido, reiniciar } = useCheckout();
   const [imprimindo, setImprimindo] = useState(true);
 
   function novoPedido() {
@@ -51,12 +52,17 @@ export function usePedidoConfirmadoViewModel() {
   }, [pedido]);
 
   const quantidadeItens = (pedido?.itens ?? []).reduce((soma, item) => soma + item.quantidade, 0);
+  // Pedido em DINHEIRO nasce PENDENTE: ainda falta pagar no balcão.
+  const pagarNoBalcao = pedido?.statusPedido === STATUS_PEDIDO.PENDENTE;
+  const rotuloForma = rotuloPagamentoTotem(pedido?.formaPagamento);
+  const prefixoTotal = pagarNoBalcao ? 'Total a pagar' : 'Total Pago';
 
   return {
     pedido,
     quantidadeItens,
-    rotuloForma: rotuloPagamentoTotem(pedido?.formaPagamento),
-    saldoPontos: pedido?.cliente?.saldoPontos ?? null,
+    pagarNoBalcao,
+    rotuloTotal: rotuloForma ? `${prefixoTotal} (${rotuloForma})` : prefixoTotal,
+    pontos: pontosDoPedido,
     imprimindo,
     imprimir,
     novoPedido,

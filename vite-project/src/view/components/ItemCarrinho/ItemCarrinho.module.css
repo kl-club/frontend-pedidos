@@ -67,9 +67,14 @@
   box-shadow: 0 1px 2px rgb(16 48 31 / 10%);
 }
 
-.quantidade button:hover {
+.quantidade button:hover:not(:disabled) {
   background: var(--color-primary);
   color: #fff;
+}
+
+.quantidade button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .remover {
@@ -86,4 +91,17 @@
 .remover:hover {
   background: var(--danger-soft);
   color: var(--danger);
+}
+
+/* Item recusado pela API: destacado até ser removido */
+.indisponivel {
+  border: 2px solid var(--danger);
+  background: var(--danger-soft);
+}
+
+.aviso {
+  color: var(--danger);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
 }

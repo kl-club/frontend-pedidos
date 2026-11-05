@@ -13,6 +13,10 @@
   --danger: #ba1a1a;
   --danger-soft: #ffdad6;
 
+  /* Pedido em dinheiro a pagar no balcão (mesmas cores do frontend-dashboard) */
+  --pagar-balcao: #0e7c86;
+  --pagar-balcao-bg: #e8f5f6;
+
   --radius: 12px;
   --shadow-card: 0 4px 16px -4px rgb(16 48 31 / 6%);
 

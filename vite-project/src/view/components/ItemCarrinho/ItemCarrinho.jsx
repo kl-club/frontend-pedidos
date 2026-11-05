@@ -1,31 +1,50 @@
+import { iconeDaCategoria } from '../../../model/entities/categoria.js';
 import { formatarMoeda } from '../../../model/entities/pedido.js';
-import { pontosDoProduto } from '../../../model/entities/produto.js';
+import { pontosDoProduto, valorDoItem } from '../../../model/entities/produto.js';
 import { ChipPontos } from '../ChipPontos/ChipPontos.jsx';
 import { Icone } from '../Icone/Icone.jsx';
 import { ImagemProduto } from '../ImagemProduto/ImagemProduto.jsx';
 import styles from './ItemCarrinho.module.css';
 
-export function ItemCarrinho({ item, aoAumentar, aoDiminuir, aoRemover }) {
+// Item recusado pela API (`indisponivel`): fica destacado e só pode ser removido.
+export function ItemCarrinho({ item, indisponivel = false, aoAumentar, aoDiminuir, aoRemover }) {
   const { produto, quantidade } = item;
-  const valorLinha = (Math.round(produto.valorUnitario * 100) * quantidade) / 100;
 
   return (
-    <li className={styles.item}>
-      <ImagemProduto className={styles.imagem} src={produto.imagemUrl} />
+    <li className={indisponivel ? `${styles.item} ${styles.indisponivel}` : styles.item}>
+      <ImagemProduto
+        className={styles.imagem}
+        src={produto.imagem}
+        icone={iconeDaCategoria(produto.categoria?.nome)}
+      />
 
       <div className={styles.info}>
         <strong className={styles.nome}>{produto.nome}</strong>
-        <ChipPontos pontos={pontosDoProduto(produto) * quantidade} />
+        {indisponivel ? (
+          <span className={styles.aviso}>Indisponível</span>
+        ) : (
+          <ChipPontos pontos={pontosDoProduto(produto) * quantidade} />
+        )}
       </div>
 
-      <span className={styles.valor}>{formatarMoeda(valorLinha)}</span>
+      <span className={styles.valor}>{formatarMoeda(valorDoItem(produto, quantidade))}</span>
 
       <div className={styles.quantidade}>
-        <button type="button" onClick={aoDiminuir} aria-label={`Diminuir ${produto.nome}`}>
+        <button
+          type="button"
+          onClick={aoDiminuir}
+          disabled={indisponivel}
+          aria-label={`Diminuir ${produto.nome}`}
+        >
           <Icone nome="remove" />
         </button>
         <span aria-live="polite">{quantidade}</span>
-        <button type="button" onClick={aoAumentar} aria-label={`Aumentar ${produto.nome}`}>
+        <button
+          type="button"
+          onClick={aoAumentar}
+          disabled={indisponivel}
+          aria-label={`Aumentar ${produto.nome}`}
+        >
           <Icone nome="add" />
         </button>
       </div>

@@ -1,22 +1,20 @@
 import { httpClient } from '../api/httpClient.js';
-import { MODALIDADE_TOTEM, ORIGEM_TOTEM } from '../constants/pedidos.js';
-import { TOTEM } from '../constants/totem.js';
+import { MODALIDADE_TOTEM } from '../constants/pedidos.js';
 
-export async function criar({ formaPagamento, observacao, itens }) {
-  const textoObservacao = observacao?.trim();
-
+/**
+ * POST /pedidos. Envia só os itens (idProduto e quantidade) e os dados do pedido:
+ * preço, total, pontos, status e data são calculados pela API.
+ * O totem ainda não identifica o cliente, então o pedido vai sem idUsuario.
+ */
+export async function criar({ formaPagamento, observacoes, itens }) {
   const corpo = {
     modalidade: MODALIDADE_TOTEM,
     formaPagamento,
-    observacao: textoObservacao || null,
+    observacoes: observacoes?.trim() || null,
     itens: itens.map(item => ({
-      produtoId: item.produto.id,
+      idProduto: item.produto.idProduto,
       quantidade: item.quantidade,
     })),
-    origem: {
-      tipo: ORIGEM_TOTEM,
-      identificacao: TOTEM.identificacao || null,
-    },
   };
 
   const resposta = await httpClient.post('/pedidos', corpo);

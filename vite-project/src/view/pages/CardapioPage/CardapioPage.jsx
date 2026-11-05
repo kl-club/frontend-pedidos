@@ -33,7 +33,7 @@ export function CardapioPage() {
     }
     return vm.produtos.data.map(produto => (
       <ProdutoCard
-        key={produto.id}
+        key={produto.idProduto}
         produto={produto}
         aoAdicionar={() => vm.adicionarAoCarrinho(produto)}
       />

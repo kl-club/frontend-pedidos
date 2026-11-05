@@ -7,11 +7,6 @@ import { ResumoPedido } from '../../components/ResumoPedido/ResumoPedido.jsx';
 import { SeloSeguro } from '../../components/SeloSeguro/SeloSeguro.jsx';
 import styles from './MaquininhaPage.module.css';
 
-const MENSAGENS_ERRO = {
-  recusado: 'Pagamento não aprovado.',
-  falhou: 'Não foi possível registrar o pedido.',
-};
-
 const FORMAS_ACEITAS = [
   { icone: 'credit_card', rotulo: 'Crédito & Débito' },
   { icone: 'qr_code_2', rotulo: 'PIX' },
@@ -25,7 +20,7 @@ function mensagemAguardando(formaPagamento, rotuloForma) {
 
 export function MaquininhaPage() {
   const vm = useMaquininhaViewModel();
-  const mensagemErro = MENSAGENS_ERRO[vm.etapa];
+  const mensagemErro = vm.etapa === 'recusado' || vm.etapa === 'falhou' ? vm.mensagemErro : null;
 
   return (
     <div className={styles.tela}>
@@ -104,7 +99,7 @@ export function MaquininhaPage() {
       </div>
 
       <footer className={styles.rodape}>
-        <Botao variante="secundario" onClick={vm.cancelar}>
+        <Botao variante="secundario" onClick={vm.cancelar} disabled={!vm.podeVoltar}>
           <Icone nome="arrow_back" />
           Voltar
         </Botao>

@@ -3,3 +3,15 @@
   object-fit: cover;
   background: #eaefe8;
 }
+
+.placeholder {
+  display: grid;
+  place-items: center;
+}
+
+/* Seletor composto: precisa vencer o .material-symbols-outlined do global.css,
+   que é carregado depois dos CSS Modules */
+.placeholder .icone {
+  color: var(--color-outline);
+  font-size: 48px;
+}

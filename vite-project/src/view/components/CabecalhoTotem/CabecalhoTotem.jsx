@@ -5,6 +5,7 @@ import styles from './CabecalhoTotem.module.css';
 export function CabecalhoTotem({
   aoVoltar,
   rotuloVoltar = 'Voltar',
+  voltarDesabilitado = false,
   aoClicarLogo,
   mostrarLogo = true,
   icone,
@@ -14,7 +15,12 @@ export function CabecalhoTotem({
   children,
 }) {
   const voltar = aoVoltar && (
-    <button type="button" className={styles.voltar} onClick={aoVoltar}>
+    <button
+      type="button"
+      className={styles.voltar}
+      onClick={aoVoltar}
+      disabled={voltarDesabilitado}
+    >
       <Icone nome="arrow_back" />
       {rotuloVoltar}
     </button>

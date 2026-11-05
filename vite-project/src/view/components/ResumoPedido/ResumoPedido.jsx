@@ -24,7 +24,7 @@ export function ResumoPedido({
       ) : (
         <ul className={styles.lista}>
           {itens.map((item, indice) => (
-            <li key={item.id ?? indice}>
+            <li key={item.idProduto ?? indice}>
               <span className={styles.qtd}>{item.quantidade}x</span>
               <span className={styles.nome}>{item.nome}</span>
               <span className={styles.valor}>{formatarMoeda(item.valorTotal)}</span>

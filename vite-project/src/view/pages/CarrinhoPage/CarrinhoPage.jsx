@@ -18,6 +18,13 @@ export function CarrinhoPage() {
           <h1 className={styles.titulo}>Revisão do Pedido</h1>
         </div>
 
+        {vm.aviso && (
+          <div className={styles.aviso} role="alert">
+            <Icone nome="error" />
+            <p>{vm.aviso}</p>
+          </div>
+        )}
+
         <div className={styles.lista}>
           {vm.vazio ? (
             <p className={styles.vazio}>Seu carrinho está vazio.</p>
@@ -25,11 +32,12 @@ export function CarrinhoPage() {
             <ul aria-label="Itens do pedido">
               {vm.itens.map(item => (
                 <ItemCarrinho
-                  key={item.produto.id}
+                  key={item.produto.idProduto}
                   item={item}
+                  indisponivel={item.indisponivel}
                   aoAumentar={() => vm.aumentar(item.produto)}
-                  aoDiminuir={() => vm.diminuir(item.produto.id)}
-                  aoRemover={() => vm.remover(item.produto.id)}
+                  aoDiminuir={() => vm.diminuir(item.produto.idProduto)}
+                  aoRemover={() => vm.remover(item.produto.idProduto)}
                 />
               ))}
             </ul>
@@ -43,7 +51,7 @@ export function CarrinhoPage() {
           </span>
           <textarea
             rows={2}
-            placeholder="Ex.: sem açúcar, sem gelo, retirar granola..."
+            placeholder="Ex.: leite sem lactose, sem açúcar, sem chantilly..."
             value={vm.observacao}
             onChange={evento => vm.definirObservacao(evento.target.value)}
           />
@@ -87,7 +95,7 @@ export function CarrinhoPage() {
             <strong>{formatarMoeda(vm.valorTotal)}</strong>
           </div>
 
-          <Botao tamanho="grande" className={styles.avancar} onClick={vm.avancar} disabled={vm.vazio}>
+          <Botao tamanho="grande" className={styles.avancar} onClick={vm.avancar} disabled={!vm.podeAvancar}>
             AVANÇAR PARA O PAGAMENTO
             <Icone nome="arrow_forward" />
           </Botao>

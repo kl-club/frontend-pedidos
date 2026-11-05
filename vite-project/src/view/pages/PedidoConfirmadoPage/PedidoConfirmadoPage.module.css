@@ -90,6 +90,26 @@
   font-weight: 800;
 }
 
+/* Pedido em dinheiro (PENDENTE): ainda falta pagar no balcão */
+.pagarNoBalcao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 560px;
+  padding: 12px 20px;
+  border: 2px solid var(--pagar-balcao);
+  border-radius: var(--radius);
+  background: var(--pagar-balcao-bg);
+  color: var(--pagar-balcao);
+  font-size: 24px;
+}
+
+.pagarNoBalcao strong {
+  font-size: 16px;
+  line-height: 22px;
+}
+
 .clube {
   display: flex;
   align-items: center;
@@ -131,21 +151,6 @@
 .textoClube strong {
   font-size: 18px;
   line-height: 24px;
-}
-
-.saldo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding-left: 16px;
-  border-left: 1px solid rgb(255 255 255 / 30%);
-  font-size: 11px;
-}
-
-.saldo strong {
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 800;
 }
 
 .resumo {

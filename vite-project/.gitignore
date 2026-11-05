@@ -26,3 +26,6 @@ dist-ssr
 
 # Mock local (gerado a partir de db.example.json)
 db.json
+
+# Instruções para agentes (só local)
+AGENTS.md

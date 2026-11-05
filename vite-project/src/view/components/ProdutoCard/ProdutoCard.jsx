@@ -1,5 +1,6 @@
+import { iconeDaCategoria } from '../../../model/entities/categoria.js';
 import { formatarMoeda } from '../../../model/entities/pedido.js';
-import { formatarPorcao, pontosDoProduto } from '../../../model/entities/produto.js';
+import { estaDisponivel, pontosDoProduto } from '../../../model/entities/produto.js';
 import { Botao } from '../Botao/Botao.jsx';
 import { ChipPontos } from '../ChipPontos/ChipPontos.jsx';
 import { Icone } from '../Icone/Icone.jsx';
@@ -7,26 +8,40 @@ import { ImagemProduto } from '../ImagemProduto/ImagemProduto.jsx';
 import styles from './ProdutoCard.module.css';
 
 export function ProdutoCard({ produto, aoAdicionar }) {
-  const porcao = formatarPorcao(produto);
+  const disponivel = estaDisponivel(produto);
 
   return (
-    <article className={styles.card}>
+    <article className={disponivel ? styles.card : `${styles.card} ${styles.indisponivel}`}>
       <div className={styles.midia}>
-        <ImagemProduto className={styles.imagem} src={produto.imagemUrl} alt={produto.nome} />
-        <ChipPontos className={styles.pontos} pontos={pontosDoProduto(produto)} />
-        {porcao && <span className={styles.porcao}>{porcao}</span>}
+        <ImagemProduto
+          className={styles.imagem}
+          src={produto.imagem}
+          alt={produto.nome}
+          icone={iconeDaCategoria(produto.categoria?.nome)}
+        />
+        {disponivel ? (
+          <ChipPontos className={styles.pontos} pontos={pontosDoProduto(produto)} />
+        ) : (
+          <span className={`${styles.pontos} ${styles.selo}`}>Indisponível</span>
+        )}
       </div>
 
       <div className={styles.corpo}>
         <h3 className={styles.nome}>{produto.nome}</h3>
-        {produto.descricao && <p className={styles.descricao}>{produto.descricao}</p>}
+        {produto.ingredientes && <p className={styles.ingredientes}>{produto.ingredientes}</p>}
 
         <div className={styles.rodape}>
-          <span className={styles.preco}>{formatarMoeda(produto.valorUnitario)}</span>
-          <Botao onClick={aoAdicionar} aria-label={`Adicionar ${produto.nome}`}>
-            <Icone nome="add" />
-            Adicionar
-          </Botao>
+          <span className={styles.preco}>{formatarMoeda(produto.preco)}</span>
+          {disponivel ? (
+            <Botao onClick={aoAdicionar} aria-label={`Adicionar ${produto.nome}`}>
+              <Icone nome="add" />
+              Adicionar
+            </Botao>
+          ) : (
+            <Botao disabled aria-label={`${produto.nome} indisponível`}>
+              Indisponível
+            </Botao>
+          )}
         </div>
       </div>
     </article>

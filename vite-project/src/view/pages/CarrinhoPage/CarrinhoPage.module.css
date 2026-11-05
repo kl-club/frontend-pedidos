@@ -45,6 +45,22 @@
   font-weight: 700;
 }
 
+/* Faixa de erro: produto recusado pela API no último pedido */
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.aviso p {
+  flex: 1;
+}
+
 .lista {
   flex: 1;
   min-height: 0;

@@ -1,3 +1,4 @@
+import { formatarMoeda } from '../../../model/entities/pedido.js';
 import { usePedidoConfirmadoViewModel } from '../../../viewmodel/usePedidoConfirmadoViewModel.js';
 import { Botao } from '../../components/Botao/Botao.jsx';
 import { Icone } from '../../components/Icone/Icone.jsx';
@@ -24,25 +25,26 @@ export function PedidoConfirmadoPage() {
 
           <div className={styles.numero}>
             <span>Número do pedido</span>
-            <strong>#{pedido.id}</strong>
+            <strong>#{pedido.idPedido}</strong>
           </div>
 
-          {pedido.pontosGanhos > 0 && (
+          {vm.pagarNoBalcao && (
+            <div className={styles.pagarNoBalcao} role="status">
+              <Icone nome="payments" />
+              <strong>Dirija-se ao balcão para pagar {formatarMoeda(pedido.valorTotal)}</strong>
+            </div>
+          )}
+
+          {vm.pontos > 0 && (
             <div className={styles.clube}>
               <span className={styles.iconeClube}>
                 <Icone nome="stars" preenchido />
               </span>
               <div className={styles.textoClube}>
                 <span className={styles.marca}>KL CLUBE</span>
-                <strong>+{pedido.pontosGanhos} pontos acumulados</strong>
+                <strong>+{vm.pontos} pontos acumulados</strong>
                 <span>Parabéns! Seus pontos já foram creditados.</span>
               </div>
-              {vm.saldoPontos !== null && (
-                <div className={styles.saldo}>
-                  <span>Saldo Total</span>
-                  <strong>{vm.saldoPontos.toLocaleString('pt-BR')} pts</strong>
-                </div>
-              )}
             </div>
           )}
         </section>
@@ -51,7 +53,7 @@ export function PedidoConfirmadoPage() {
           className={styles.resumo}
           itens={pedido.itens ?? []}
           valorTotal={pedido.valorTotal}
-          rotuloTotal={vm.rotuloForma ? `Total Pago (${vm.rotuloForma})` : 'Total Pago'}
+          rotuloTotal={vm.rotuloTotal}
           legendaTotal={`${vm.quantidadeItens} ${vm.quantidadeItens === 1 ? 'Item Selecionado' : 'Itens Selecionados'}`}
         />
       </div>

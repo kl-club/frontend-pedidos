@@ -1,8 +1,4 @@
-import {
-  ROTULOS_MODALIDADE,
-  ROTULOS_PAGAMENTO,
-  ROTULOS_PAGAMENTO_TOTEM,
-} from '../constants/pedidos.js';
+import { ROTULOS_MODALIDADE, ROTULOS_PAGAMENTO_TOTEM } from '../constants/pedidos.js';
 
 export function formatarMoeda(valor) {
   const numero = Number(valor);
@@ -24,12 +20,8 @@ export function formatarItens(itens) {
   return (itens ?? []).map(formatarItem).join(', ');
 }
 
-export function rotuloPagamento(codigo) {
-  return ROTULOS_PAGAMENTO[codigo] ?? codigo ?? '';
-}
-
 export function rotuloPagamentoTotem(codigo) {
-  return ROTULOS_PAGAMENTO_TOTEM[codigo] ?? rotuloPagamento(codigo);
+  return ROTULOS_PAGAMENTO_TOTEM[codigo] ?? codigo ?? '';
 }
 
 export function rotuloModalidade(codigo) {

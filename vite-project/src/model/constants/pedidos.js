@@ -1,45 +1,40 @@
+// Valores dos enums da API (FormaPagamento, Modalidade e StatusPedido do backend).
 export const FORMAS_PAGAMENTO = {
   PIX: 'PIX',
-  CARTAO_CREDITO: 'CARTAO_CREDITO',
-  CARTAO_DEBITO: 'CARTAO_DEBITO',
-  DINHEIRO: 'DINHEIRO',
+  CREDITO: 'CREDITO',
+  DEBITO: 'DEBITO',
   VOUCHER: 'VOUCHER',
+  DINHEIRO: 'DINHEIRO',
 };
 
+// Ordem dos cards na tela de pagamento (grade 3 + 2).
 export const FORMAS_PAGAMENTO_TOTEM = [
   FORMAS_PAGAMENTO.PIX,
-  FORMAS_PAGAMENTO.CARTAO_CREDITO,
+  FORMAS_PAGAMENTO.CREDITO,
+  FORMAS_PAGAMENTO.DEBITO,
   FORMAS_PAGAMENTO.VOUCHER,
+  FORMAS_PAGAMENTO.DINHEIRO,
 ];
-
-export const ROTULOS_PAGAMENTO = {
-  PIX: 'PIX Instantâneo',
-  CARTAO_CREDITO: 'Cartão de Crédito',
-  CARTAO_DEBITO: 'Cartão de Débito',
-  DINHEIRO: 'Dinheiro',
-  VOUCHER: 'Voucher',
-};
 
 export const ROTULOS_PAGAMENTO_TOTEM = {
   PIX: 'Pix',
-  CARTAO_CREDITO: 'Cartão de Crédito',
+  CREDITO: 'Cartão de Crédito',
+  DEBITO: 'Cartão de Débito',
   VOUCHER: 'Voucher / VR',
+  DINHEIRO: 'Dinheiro',
 };
 
-export const MODALIDADES = {
-  RETIRADA: 'RETIRADA',
-  CONSUMO_LOCAL: 'CONSUMO_LOCAL',
-};
+// O totem só atende consumo no local.
+export const MODALIDADE_TOTEM = 'LOCAL';
 
 export const ROTULOS_MODALIDADE = {
-  RETIRADA: 'Retirada Balcão',
-  CONSUMO_LOCAL: 'Comer no local',
+  LOCAL: 'Comer no local',
 };
-
-export const MODALIDADE_TOTEM = MODALIDADES.CONSUMO_LOCAL;
 
 export const STATUS_PEDIDO = {
-  PAGO: 'PAGO',
+  // Pedido em DINHEIRO nasce PENDENTE: o pagamento é feito no balcão.
+  PENDENTE: 'PENDENTE',
 };
 
-export const ORIGEM_TOTEM = 'TOTEM';
+// Erros do POST /pedidos causados por um item do carrinho.
+export const CODIGOS_ERRO_ITEM = ['PRODUTO_INDISPONIVEL', 'PRODUTO_NAO_ENCONTRADO'];

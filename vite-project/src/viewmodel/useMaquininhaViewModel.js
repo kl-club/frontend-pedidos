@@ -1,18 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatarItens, rotuloPagamentoTotem } from '../model/entities/pedido.js';
+import { valorDoItem } from '../model/entities/produto.js';
 import { cobrar } from '../model/services/pagamentoService.js';
-import { criar } from '../model/services/pedidoService.js';
 import { useCarrinho } from './contexts/CarrinhoContext.jsx';
 import { useCheckout } from './contexts/CheckoutContext.jsx';
+import { useConfirmarPedido } from './useConfirmarPedido.js';
 
 export function useMaquininhaViewModel() {
   const navigate = useNavigate();
   const carrinho = useCarrinho();
-  const { formaPagamento, definirPedido } = useCheckout();
+  const { formaPagamento } = useCheckout();
+  const confirmarPedido = useConfirmarPedido();
 
   const [etapa, setEtapa] = useState('aguardando');
+  const [mensagemErro, setMensagemErro] = useState(null);
   const [tentativa, setTentativa] = useState(0);
+  // Depois de uma cobrança aprovada, "Tentar novamente" só reenvia o pedido.
+  const cobrancaAprovada = useRef(false);
 
   // Depende só de `tentativa` de propósito: incluir o carrinho faria cobrar de novo.
   useEffect(() => {
@@ -24,34 +29,27 @@ export function useMaquininhaViewModel() {
     let cancelado = false;
 
     async function pagarEConfirmar() {
-      let resultado;
-      try {
-        resultado = await cobrar(carrinho.valorTotal, formaPagamento);
-      } catch {
-        resultado = 'RECUSADO';
-      }
-      if (cancelado) return;
+      if (!cobrancaAprovada.current) {
+        let resultado;
+        try {
+          resultado = await cobrar(carrinho.valorTotal, formaPagamento);
+        } catch {
+          resultado = 'RECUSADO';
+        }
+        if (cancelado) return;
 
-      if (resultado !== 'APROVADO') {
-        setEtapa('recusado');
-        return;
+        if (resultado !== 'APROVADO') {
+          setEtapa('recusado');
+          return;
+        }
+        cobrancaAprovada.current = true;
       }
 
       setEtapa('processando');
-
-      try {
-        const pedido = await criar({
-          formaPagamento,
-          observacao: carrinho.observacao,
-          itens: carrinho.itens,
-        });
-        if (cancelado) return;
-
-        definirPedido(pedido);
-        carrinho.limpar();
-        navigate('/totem/confirmado', { replace: true });
-      } catch {
-        if (!cancelado) setEtapa('falhou');
+      const mensagem = await confirmarPedido(formaPagamento);
+      if (mensagem && !cancelado) {
+        setMensagemErro(mensagem);
+        setEtapa('falhou');
       }
     }
 
@@ -63,22 +61,25 @@ export function useMaquininhaViewModel() {
   }, [tentativa]);
 
   const itens = carrinho.itens.map(item => ({
-    id: item.produto.id,
+    idProduto: item.produto.idProduto,
     nome: item.produto.nome,
     quantidade: item.quantidade,
-    valorTotal: (Math.round(item.produto.valorUnitario * 100) * item.quantidade) / 100,
+    valorTotal: valorDoItem(item.produto, item.quantidade),
   }));
 
   return {
     etapa,
+    mensagemErro: etapa === 'recusado' ? 'Pagamento não aprovado.' : mensagemErro,
     itens,
     descricaoItens: formatarItens(itens),
     valorTotal: carrinho.valorTotal,
     pontosAGanhar: carrinho.pontosTotal,
     formaPagamento,
     rotuloForma: rotuloPagamentoTotem(formaPagamento),
+    // Durante o POST, voltar deixaria um pedido criado com o carrinho ainda cheio.
+    podeVoltar: etapa !== 'processando',
     tentarNovamente: () => {
-      setEtapa('aguardando');
+      setEtapa(cobrancaAprovada.current ? 'processando' : 'aguardando');
       setTentativa(anterior => anterior + 1);
     },
     trocarForma: () => navigate('/totem/pagamento'),

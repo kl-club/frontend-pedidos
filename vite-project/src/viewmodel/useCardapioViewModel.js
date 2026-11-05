@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { listarCategorias, listarProdutos } from '../model/services/cardapioService.js';
+import { ehSemConexao, MENSAGEM_SEM_CONEXAO } from '../model/api/httpClient.js';
+import {
+  listarCategoriasAtivas,
+  listarProdutosDoCardapio,
+} from '../model/services/cardapioService.js';
 import { useCarrinho } from './contexts/CarrinhoContext.jsx';
 
 const MENSAGEM_ERRO = 'Não foi possível carregar o cardápio.';
 const BLOCO_INICIAL = { status: 'loading', data: [], error: null };
+
+function mensagemDeErro(erro) {
+  return ehSemConexao(erro) ? MENSAGEM_SEM_CONEXAO : MENSAGEM_ERRO;
+}
 
 export function useCardapioViewModel() {
   const navigate = useNavigate();
@@ -19,12 +27,12 @@ export function useCardapioViewModel() {
   useEffect(() => {
     let cancelado = false;
 
-    listarCategorias()
+    listarCategoriasAtivas()
       .then(dados => {
         if (!cancelado) setCategorias({ status: 'success', data: dados, error: null });
       })
-      .catch(() => {
-        if (!cancelado) setCategorias({ status: 'error', data: [], error: MENSAGEM_ERRO });
+      .catch(erro => {
+        if (!cancelado) setCategorias({ status: 'error', data: [], error: mensagemDeErro(erro) });
       });
 
     return () => {
@@ -35,12 +43,12 @@ export function useCardapioViewModel() {
   useEffect(() => {
     let cancelado = false;
 
-    listarProdutos(categoriaSelecionadaId)
+    listarProdutosDoCardapio(categoriaSelecionadaId)
       .then(dados => {
         if (!cancelado) setProdutos({ status: 'success', data: dados, error: null });
       })
-      .catch(() => {
-        if (!cancelado) setProdutos({ status: 'error', data: [], error: MENSAGEM_ERRO });
+      .catch(erro => {
+        if (!cancelado) setProdutos({ status: 'error', data: [], error: mensagemDeErro(erro) });
       });
 
     return () => {

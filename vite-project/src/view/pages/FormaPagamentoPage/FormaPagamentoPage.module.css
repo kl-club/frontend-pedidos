@@ -20,6 +20,8 @@
   margin: 0 auto;
   padding: 24px;
   min-height: 0;
+  /* Com 2 linhas de cards, telas mais baixas (ex.: 800px) precisam rolar */
+  overflow-y: auto;
 }
 
 .cabecalhoConteudo {
@@ -110,13 +112,31 @@
   line-height: 16px;
 }
 
+/* Grade 3 + 2: a segunda linha fica centralizada */
 .opcoes {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 24px;
 }
 
+.erro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.erro p {
+  flex: 1;
+}
+
 .cartao {
+  flex: 0 1 calc((100% - 48px) / 3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,12 +152,34 @@
   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 
-.cartao:hover {
+.cartao:hover:not(:disabled) {
   background: var(--verde-claro-suave);
 }
 
+.cartao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Dinheiro enquanto o pedido é criado: continua em destaque */
+.cartao.confirmando {
+  opacity: 1;
+  border-color: var(--color-primary);
+  cursor: progress;
+}
+
+.girando {
+  animation: girar 1.2s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .cartao:focus-visible,
-.cartao:active {
+.cartao:active:not(:disabled) {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 4px rgb(31 122 76 / 25%);
@@ -185,5 +227,9 @@
 @media (prefers-reduced-motion: reduce) {
   .cartao {
     transition: none;
+  }
+
+  .girando {
+    animation: none;
   }
 }

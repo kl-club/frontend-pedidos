@@ -52,8 +52,13 @@
   font-weight: 600;
 }
 
-.voltar:hover {
+.voltar:hover:not(:disabled) {
   background: var(--color-surface-low);
+}
+
+.voltar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .titulo {

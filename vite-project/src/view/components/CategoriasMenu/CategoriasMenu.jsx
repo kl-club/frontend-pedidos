@@ -1,13 +1,17 @@
+import { iconeDaCategoria } from '../../../model/entities/categoria.js';
 import { Icone } from '../Icone/Icone.jsx';
 import styles from './CategoriasMenu.module.css';
 
 const ICONE_TODOS = 'restaurant_menu';
-const ICONE_PADRAO = 'restaurant';
 
 export function CategoriasMenu({ categorias, selecionadaId, aoSelecionar }) {
   const opcoes = [
     { id: undefined, nome: 'Todos', icone: ICONE_TODOS },
-    ...categorias.map(categoria => ({ ...categoria, icone: categoria.icone || ICONE_PADRAO })),
+    ...categorias.map(categoria => ({
+      id: categoria.idCategoria,
+      nome: categoria.nome,
+      icone: iconeDaCategoria(categoria.nome),
+    })),
   ];
 
   return (
